@@ -1,5 +1,21 @@
 version: 3
+
+workflows:
+  terraform:
+    jobs:
+      - hello_world
+      #- execute_terraform
+
 jobs:
+  hello_world:
+    docker: 
+      - image: alpine
+
+    steps:
+      - run:
+          name: hello world
+          command: echo "hello world"
+
   build:
     docker:
       # specify the version you desire here
