@@ -1,0 +1,6 @@
+
+.terraform/plugins/windows_amd64/
+
+terraform.tfstate
+
+terraform.tfstate.backup
