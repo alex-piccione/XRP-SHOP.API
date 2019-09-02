@@ -6,11 +6,11 @@ workflows:
       - build_number
       - create_lambda_zip      
       - deploy_lambda_zip:
-        requires:
-          - create_lambda_zip
+          requires:
+            - create_lambda_zip
       - smoke_test:
-        requires:
-          - deploy_lambda_zip
+          requires:
+            - deploy_lambda_zip
         
 
 jobs:
@@ -21,8 +21,8 @@ jobs:
           ENV: DEV
     steps:
       - run:
-          name: build_numbern
-          command: echo "build_number is ${CIRCLE_BUILD_NUM}"
+          name: CircleCI build number
+          command: echo "build number is ${CIRCLE_BUILD_NUM}"
 
   create_lambda_zip:
     docker: 
