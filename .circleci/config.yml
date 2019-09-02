@@ -4,17 +4,45 @@ workflows:
   terraform:
     jobs:
       - hello_world
-      #- execute_terraform
+      - create_lambda_zip
+      - deploy_lambda_zip
+      - smoke_test
 
 jobs:
   hello_world:
     docker: 
       - image: alpine
-
+        environment: 
+          ENV: DEV
     steps:
       - run:
           name: hello world
           command: echo "hello world"
+
+  create_lambda_zip:
+    docker: 
+      - image: circleci/python:3.7.1
+        environment: 
+          ENV: DEV
+    steps:
+      - checkout
+      - run:
+          name: create the zip file
+          command: echo "Zip file created"
+  
+  deploy_lambda_zip:
+    docker:
+      - image: alpine
+    steps:
+      - run: echo "deploy zip file"
+
+  smoke_test:
+    docker:
+      - image: alpine
+    steps:
+      - run: echo "Smoke test"
+
+
 
   build:
     docker:
