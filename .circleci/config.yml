@@ -1,23 +1,28 @@
 version: 2.1
 
 workflows:
-  terraform:
+  build_and_deploy:
     jobs:
-      - hello_world
-      - create_lambda_zip
-      - deploy_lambda_zip
-      - smoke_test
+      - build_number
+      - create_lambda_zip      
+      - deploy_lambda_zip:
+        requires:
+          - create_lambda_zip
+      - smoke_test:
+        requires:
+          - deploy_lambda_zip
+        
 
 jobs:
-  hello_world:
+  build_number:
     docker: 
       - image: alpine
         environment: 
           ENV: DEV
     steps:
       - run:
-          name: hello world
-          command: echo "hello world"
+          name: build_numbern
+          command: echo "build_number is ${CIRCLE_BUILD_NUM}"
 
   create_lambda_zip:
     docker: 
